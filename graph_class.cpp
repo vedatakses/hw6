@@ -51,7 +51,25 @@ public:
 	int InDegree(int vertex) {
 
 	}
+	
+	int OutDegree(int vertex) {
 
+	}
+	
+	bool isNeighborDownStream(int neigh, int source) {
+	}
+
+	bool isNeighborUpStream(int neigh, int source) {
+	}
+
+	bool isReachable(int target, int source) {
+	}
+	
+	void addEdge(int s, int t) {
+	}
+	
+	
+	
 	void ReadFromFile(string fn) {
 		ifstream ifs;
 		int s, t;
