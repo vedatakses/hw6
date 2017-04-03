@@ -26,6 +26,7 @@ void PrintList(vector<list<int> > &lst) {
 
 
 class Graph {
+    list<int> *adj;
     int numNodes;
     vector<list<int> > outlist;
     vector<list<int> > inlist;
@@ -88,6 +89,49 @@ public:
         return reachable;
     }
 
+    // breadth first search
+    bool bfs(int vertex) {
+        if (vertex > numNodes - 1) {
+            return false;
+        }
+        cout << "bfs called for element " << vertex << "-> " << endl;
+
+        // Mark all the vertices as not visited
+        bool visited[numNodes];
+        for (int i = 0; i < numNodes; i++) {
+            visited[i] = false;
+        }
+
+        list<int> queue;
+
+        visited[vertex] = true;
+        queue.push_back(vertex);
+
+        while (!queue.empty()) {
+            vertex = queue.front();
+            queue.pop_front();
+            for (list<int>::iterator ip = outlist[vertex].begin(); ip != outlist[vertex].end(); ++ip) {
+                if (!visited[*ip]) {
+                    visited[*ip] = true;
+                    queue.push_back(*ip);
+                }
+            }
+        }
+
+        cout << "******" << endl;
+
+        for (int i = 0; i < numNodes; i++) {
+            string str;
+            if (visited[i] == 1) {
+                str = "visited";
+            } else {
+                str = "not visited";
+            }
+            cout << i << ": " << str << endl;
+        }
+
+        return queue.size() > 0;
+    }
 
     void addEdge(int s, int t) {
         numNodes++;
@@ -143,6 +187,8 @@ int main() {
     g.addEdge(4, 2);
     cout << "Print after addEdge(4, 2) called" << endl;
     g.Print();
+
+    cout << g.bfs(2);
 
     return 0;
 }
